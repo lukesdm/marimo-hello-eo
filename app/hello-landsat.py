@@ -1,6 +1,6 @@
 import marimo
 
-__generated_with = "0.11.17"
+__generated_with = "0.14.16"
 app = marimo.App(width="medium")
 
 
@@ -16,16 +16,7 @@ def _():
     import pystac_client
     import shapely
     import stackstac
-    return (
-        date,
-        gpd,
-        mo,
-        planetary_computer,
-        px,
-        pystac_client,
-        shapely,
-        stackstac,
-    )
+    return mo, planetary_computer, px, pystac_client, stackstac
 
 
 @app.cell
@@ -43,7 +34,7 @@ def _(planetary_computer, pystac_client):
     search = catalog.search(collections=["landsat-c2-l2"], bbox=bbox, datetime=time_range)
     items = search.item_collection()
     print(f"Found {len(items)} items.")
-    return bbox, catalog, items, search, time_range
+    return (items,)
 
 
 @app.cell
@@ -61,7 +52,7 @@ def _(ds):
     y_offset = 3000
     size = 256
     ds_subset = ds.isel(x=range(x_offset,x_offset + size), y=range(y_offset,y_offset + size)).compute().rename("value")
-    return ds_subset, size, x_offset, y_offset
+    return (ds_subset,)
 
 
 @app.cell

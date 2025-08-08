@@ -1,4 +1,4 @@
-FROM ghcr.io/marimo-team/marimo:0.11.17
+FROM ghcr.io/marimo-team/marimo:0.14.16
 
 # Install OS packages, inc. GDAL.
 RUN apt-get update && apt-get install -y \
@@ -8,7 +8,7 @@ RUN apt-get update && apt-get install -y \
     python3-dev
 
 # Install UV and make a virtual env.
-COPY --from=ghcr.io/astral-sh/uv:0.4.20 /uv /bin/uv
+COPY --from=ghcr.io/astral-sh/uv:0.8.6 /uv /bin/uv
 ENV UV_SYSTEM_PYTHON=1
 RUN uv venv
 
