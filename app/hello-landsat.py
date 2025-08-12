@@ -24,21 +24,25 @@ def _(mo):
         r"""
     # Hello Landsat
 
-    A quick demonstration of using Earth observation (EO) data in a [marimo](https://marimo.io/) notebook.
+    A quick demonstration of using Earth observation (EO) data in a [marimo](https://marimo.io/) notebook. Based on tutorials from [Microsoft Planetary Computer](https://planetarycomputer.microsoft.com/).
+
+    If the notebook doesn't run automatically, click ▶️ in the bottom right of the screen to get started.
+
+    Author: Luke McQuade @ [EO Analytics](https://www.plus.ac.at/geoinformatik/research/research-areas/eo-analytics/?lang=en), Z_GIS, Paris Lodron Universität Salzburg.
     """
     )
     return
 
 
-@app.cell
+@app.cell(hide_code=True)
 def _(mo):
     mo.md(
         r"""
     ## Perform Planetary Computer STAC search
 
-    Search the [Microsoft Planetary Computer](https://planetarycomputer.microsoft.com/) STAC API for Landsat 8/9 images.
+    Search the STAC API for Landsat 8/9 images from [Landast Collection 2](https://planetarycomputer.microsoft.com/dataset/landsat-c2-l2).
 
-    See also https://planetarycomputer.microsoft.com/docs/quickstarts/reading-stac/.
+    See also https://planetarycomputer.microsoft.com/docs/quickstarts/reading-stac/
     """
     )
     return
@@ -50,6 +54,8 @@ def _(planetary_computer, pystac_client, shapely):
         "https://planetarycomputer.microsoft.com/api/stac/v1",
         modifier=planetary_computer.sign_inplace,
     )
+    
+    # ⚙️ Once familiar with the notebook, try changing this!
     time_range = "2023-04-01/2023-04-30"
 
     # Area of interest (AoI) bounding box
@@ -69,7 +75,7 @@ def _(planetary_computer, pystac_client, shapely):
         ],
     }
 
-    # Select only Landsat 8 and 9 (not 7).
+    # Select only Landsat 8 and 9.
     _cql2_platform = {
         "op": "in",
         "args": [{"property": "platform"}, ["landsat-8", "landsat-9"]],
@@ -86,15 +92,21 @@ def _(planetary_computer, pystac_client, shapely):
     return bbox, items
 
 
-@app.cell
+@app.cell(hide_code=True)
 def _(mo):
-    mo.md(r"""## Load the data""")
+    mo.md(
+        r"""
+    ## Load the data
+
+    For convenience, downsample to 200m and preload it into memory.
+    """
+    )
     return
 
 
 @app.cell
 def _(bbox, items, stackstac):
-    # For convenience, downsample to 200m and reproject to EPSG3857.
+    # Also for convenience, reproject to EPSG3857.
     ds = stackstac.stack(
         items, epsg=3857, bounds_latlon=bbox, resolution=200
     ).compute().rename("value")
@@ -104,7 +116,7 @@ def _(bbox, items, stackstac):
     return (ds,)
 
 
-@app.cell
+@app.cell(hide_code=True)
 def _(mo):
     mo.md(
         r"""
@@ -133,17 +145,24 @@ def _(ds, timestep):
 
 @app.cell
 def _(band, ds, mo, px, timestep, timestep_label):
-    # Slice and plot image
+    # Slice data and create image plot
     _ds_single = ds.sel(band=band.value)[timestep.value]
-    _plot = px.imshow(_ds_single, title=timestep_label, width=550, height=550)
+    _plot = px.imshow(
+        _ds_single, title=timestep_label, width=525, height=500,
+        # Flip Y axis
+        origin="lower"
+    )
+    # Reduce space between title and plot
+    _plot.update_layout(margin={"t": 50})
+
     img_plot = mo.ui.plotly(_plot)
     return (img_plot,)
 
 
 @app.cell
 def _(band, ds, img_plot, mo, px):
-    # Plot selected pixels' mean time-series
-    _plot = px.line(markers=True, height=500)
+    # Create a plot of the selected pixels' mean time-series
+    _plot = px.line(markers=True, height=500, width=500)
     _plot.update_layout(xaxis_title="Date", yaxis_title="Mean", title=f"Selected pixels: Mean {band.value} over time")
 
     if len(img_plot.ranges) > 0:
@@ -166,11 +185,17 @@ def _(band, ds, img_plot, mo, px):
 
 @app.cell
 def _(band, img_plot, mean_plot, mo, timestep):
-    mo.vstack([band, timestep, mo.hstack([img_plot, mean_plot])])
+    # Display the UI elements and plots
+    mo.vstack(
+        [
+            mo.hstack([band, timestep], justify="start"),
+            mo.hstack([img_plot, mean_plot]),
+        ]
+    )
     return
 
 
-@app.cell
+@app.cell(hide_code=True)
 def _(mo):
     mo.md(
         r"""
