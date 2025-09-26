@@ -1,6 +1,16 @@
+# /// script
+# requires-python = ">=3.12"
+# dependencies = [
+#     "planetary-computer",
+#     "plotly",
+#     "stackstac",
+#     "shapely",
+# ]
+# ///
+
 import marimo
 
-__generated_with = "0.14.16"
+__generated_with = "0.15.5"
 app = marimo.App(width="medium")
 
 
@@ -29,6 +39,8 @@ def _(mo):
     If the notebook doesn't run automatically, click ▶️ in the bottom right of the screen to get started.
 
     Author: Luke McQuade @ [EO Analytics](https://www.plus.ac.at/geoinformatik/research/research-areas/eo-analytics/?lang=en), Z_GIS, Paris Lodron Universität Salzburg.
+
+    GitHub reposistory: https://github.com/lukesdm/marimo-hello-eo.
     """
     )
     return
@@ -54,7 +66,7 @@ def _(planetary_computer, pystac_client, shapely):
         "https://planetarycomputer.microsoft.com/api/stac/v1",
         modifier=planetary_computer.sign_inplace,
     )
-    
+
     # ⚙️ Once familiar with the notebook, try changing this!
     time_range = "2023-04-01/2023-04-30"
 

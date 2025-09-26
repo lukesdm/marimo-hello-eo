@@ -1,4 +1,4 @@
-FROM ghcr.io/marimo-team/marimo:0.14.16
+FROM ghcr.io/marimo-team/marimo:0.15.5
 
 # Install OS packages, inc. GDAL.
 RUN apt-get update && apt-get install -y \
