@@ -38,7 +38,7 @@ def _(mo):
 
     If the notebook doesn't run automatically, click ▶️ in the bottom right of the screen to get started.
 
-    Author: Luke McQuade @ [EO Analytics](https://www.plus.ac.at/geoinformatik/research/research-areas/eo-analytics/?lang=en), Z_GIS, Paris Lodron Universität Salzburg.
+    Author: [Luke McQuade](https://www.linkedin.com/in/luke-mcquade-87bba036/) @ [EO Analytics](https://www.plus.ac.at/geoinformatik/research/research-areas/eo-analytics/?lang=en), Z_GIS, Paris Lodron Universität Salzburg.
 
     GitHub reposistory: https://github.com/lukesdm/marimo-hello-eo.
     """
