@@ -15,7 +15,7 @@ RUN useradd -m appuser
 WORKDIR /app
 
 # ARG marimo_version=0.12.8
-ARG marimo_version=0.16.2
+ARG marimo_version=0.16.4
 ENV MARIMO_SKIP_UPDATE_CHECK=1
 ENV UV_SYSTEM_PYTHON=1
 RUN uv pip install --no-cache-dir marimo==${marimo_version} && \
