@@ -10,7 +10,7 @@
 
 import marimo
 
-__generated_with = "0.16.4"
+__generated_with = "0.19.2"
 app = marimo.App(width="medium")
 
 
@@ -30,8 +30,7 @@ def _():
 
 @app.cell
 def _(mo):
-    mo.md(
-        r"""
+    mo.md(r"""
     # Hello Landsat
 
     A quick demonstration of using Earth observation (EO) data in a [marimo](https://marimo.io/) notebook. Based on tutorials from [Microsoft Planetary Computer](https://planetarycomputer.microsoft.com/).
@@ -41,22 +40,19 @@ def _(mo):
     Author: [Luke McQuade](https://www.linkedin.com/in/luke-mcquade-87bba036/) @ [EO Analytics](https://www.plus.ac.at/geoinformatik/research/research-areas/eo-analytics/?lang=en), Z_GIS, Paris Lodron Universität Salzburg.
 
     GitHub reposistory: https://github.com/lukesdm/marimo-hello-eo.
-    """
-    )
+    """)
     return
 
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
+    mo.md(r"""
     ## Perform Planetary Computer STAC search
 
     Search the STAC API for Landsat 8/9 images from [Landast Collection 2](https://planetarycomputer.microsoft.com/dataset/landsat-c2-l2).
 
     See also https://planetarycomputer.microsoft.com/docs/quickstarts/reading-stac/
-    """
-    )
+    """)
     return
 
 
@@ -106,13 +102,11 @@ def _(planetary_computer, pystac_client, shapely):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
+    mo.md(r"""
     ## Load the data
 
     For convenience, downsample to 200m and preload it into memory.
-    """
-    )
+    """)
     return
 
 
@@ -130,13 +124,11 @@ def _(bbox, items, stackstac):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
+    mo.md(r"""
     ## Construct a simple UI and display it
 
     The UI elements showcase marimo's reactivity—as one thing is changed, the other elements update automatically.
-    """
-    )
+    """)
     return
 
 
@@ -209,13 +201,11 @@ def _(band, img_plot, mean_plot, mo, timestep):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
+    mo.md(r"""
     ☝️ Try exploring the images, then select a region of pixels.
 
     (A known issue: when you change the image date/band, the chart resets.)
-    """
-    )
+    """)
     return
 
 
