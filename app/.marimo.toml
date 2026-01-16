@@ -1,0 +1,5 @@
+[package_management]
+manager = "uv"
+
+[runtime]
+auto_reload = "lazy"
