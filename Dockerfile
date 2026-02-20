@@ -5,7 +5,7 @@ WORKDIR /app
 RUN pixi config set --global detached-environments true
 
 # Install dependencies
-COPY app/pixi.toml app/pixi.lock ./
+COPY app/pyproject.toml app/pixi.lock ./
 RUN pixi install
 
 # No need to copy anything else - it will be volume mounted.

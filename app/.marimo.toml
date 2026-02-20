@@ -1,5 +1,0 @@
-[package_management]
-manager = "pixi"
-
-[runtime]
-auto_reload = "lazy"
